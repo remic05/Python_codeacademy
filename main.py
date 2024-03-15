@@ -62,6 +62,23 @@ def buster(total):
     return continuer
 
 
+def piocher(total_second):
+    carte3 = donner_nouvelle_carte(obtenir_une_cartes())
+    total_second += int(carte3[0])
+    return total_second
+
+
+def rester():
+    pass
+
+
+def choix_piocher_ou_non():
+    choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? rester/piocher ")
+    choix = erreur2(choix)
+
+    return choix
+
+
 jouer = input("Bonjour, voulez-vous jouez au BlackJack ? Oui/Non: ")
 
 jouer = erreur(jouer)
@@ -76,22 +93,22 @@ if jouer.lower() == "oui":
         total = calucler_total(carte1, carte2)
         print(
             f"Voila vos deux cartes: le {carte1[0]} de {carte1[1]} et le {carte2[0]} de {carte2[1]} pour un total de {total}")
-        choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? rester/piocher ")
-        choix = erreur2(choix)
-        if choix.lower() == "piocher":
-            carte3 = donner_nouvelle_carte(obtenir_une_cartes())
-            total += int(carte3[0])
-            if total > 21:
-                continuer = buster(total)
-                if continuer.lower() == "Oui":
-                    parti_en_cours = True
-                    break
-                elif continuer.lower() == "Non":  # A VÉRIFIER
-                    parti_en_cours = False
-                    break
-            if total < 21:
-                print("Vous avez obtenu")
+        choix = choix_piocher_ou_non()
+        if choix == "piocher":
+            total = piocher(total)
+        if total > 21:
+            continuer = buster(total)
+            if continuer.lower() == "Oui":
+                parti_en_cours = True
+                break
+            elif continuer.lower() == "Non":  # A VÉRIFIER
+                parti_en_cours = False
+                print("Merci et à la prochaine")
+                break
+        elif total < 21:
+            print("Vous avez obtenu")
         elif choix.lower() == "rester":
+            rester() #fonction a complété
             pass
         print("te")
 
