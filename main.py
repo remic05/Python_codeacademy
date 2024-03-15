@@ -1,30 +1,10 @@
 from Paquet_de_carte import Carte
-
+from Manipulation_carte import *
+from gerer_erreur import *
+from mecanique_jeux import  *
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("                 BLACKJACK                 ")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-
-
-def obtenir_une_cartes():
-    carte = Carte()
-    carte = carte.tirer_une_carte()
-
-    return carte
-
-
-def convertir_une_carte(carte):
-    cartes = list(carte)
-    if cartes[0] == "Valet":
-        cartes[0] = "10"
-    elif cartes[0] == "Dame":
-        cartes[0] = "10"
-    elif cartes[0] == "Roi":
-        cartes[0] = "10"
-    elif cartes[0] == "As":
-        cartes[0] = "1"
-
-    return tuple(cartes)
-
 
 def calucler_total(carte1, carte2):
     carte1 = convertir_une_carte(carte1)
@@ -33,68 +13,9 @@ def calucler_total(carte1, carte2):
     return total
 
 
-def donner_nouvelle_carte(function):
-    carte = obtenir_une_cartes()
-    carte = convertir_une_carte(carte)
-
-    return carte
-
-
-def erreur(jouer_encore):
-    while jouer_encore.lower() != "oui" and jouer_encore.lower() != "non":
-        jouer_encore = input("Veuillez entrer une valeur valide (Oui ou Non): ")
-
-    return jouer_encore
-
-
-def erreur2(choix):
-    while choix.lower() != "rester" and choix.lower() != "piocher":
-        choix = input("Veuillez entrer une valeur valide (rester ou piocher): ")
-
-    return choix
-
-
-def buster_message(total):
-    print("Vous avez \"Buster\" perdu pour ce tour avec un total de {}".format(total))
-    continuer_apres_buster = input("Voulez vous recommencer ? Oui ou non ? ")
-    erreur(continuer_apres_buster)
-
-    return continuer_apres_buster
-
-
-def buster():
-    global parti_en_cours
-    continuer_apres_buster = buster_message(total)
-    if continuer_apres_buster.lower() == "oui":
-        parti_en_cours = True
-
-    elif continuer_apres_buster.lower() == "non":
-        parti_en_cours = False
-        print("Merci et à la prochaine")
-
-    return parti_en_cours
-
-
-def piocher(total_second):
-    carte3 = donner_nouvelle_carte(obtenir_une_cartes())
-    total_second += int(carte3[0])
-    return total_second, carte3
-
-
-def rester():
-    pass
-
-
-def choix_piocher_ou_non():
-    choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? rester/piocher ")
-    choix = erreur2(choix)
-
-    return choix
-
-
 jouer = input("Bonjour, voulez-vous jouez au BlackJack ? Oui/Non: ")
 
-jouer = erreur(jouer)
+jouer = recomencer_partit(jouer)
 
 if jouer.lower() == "oui":
     parti_en_cours = True

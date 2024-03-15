@@ -17,3 +17,9 @@ class Carte:
         carte_tiree = random.choice(self.paquet)
         self.paquet.remove(carte_tiree)
         return carte_tiree
+
+    def obtenir_une_cartes(self):
+        carte = Carte()
+        carte = carte.tirer_une_carte()
+
+        return carte
