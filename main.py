@@ -48,8 +48,8 @@ def erreur(jouer_encore):
 
 
 def erreur2(choix):
-    while choix.lower() != "garder" and choix.lower() != "autre":
-        choix = input("Veuillez entrer une valeur valide (Garder ou Autre): ")
+    while choix.lower() != "rester" and choix.lower() != "piocher":
+        choix = input("Veuillez entrer une valeur valide (rester ou piocher): ")
 
     return choix
 
@@ -76,10 +76,9 @@ if jouer.lower() == "oui":
         total = calucler_total(carte1, carte2)
         print(
             f"Voila vos deux cartes: le {carte1[0]} de {carte1[1]} et le {carte2[0]} de {carte2[1]} pour un total de {total}")
-        choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? Garder/Autre ")
-        while choix.lower() != "garder" and choix.lower() != "autre":
-            choix = input("Veuillez entrer une valeur valide (Garder ou Autre): ")
-        if choix.lower() == "garder":
+        choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? rester/piocher ")
+        choix = erreur2(choix)
+        if choix.lower() == "piocher":
             carte3 = donner_nouvelle_carte(obtenir_une_cartes())
             total += int(carte3[0])
             if total > 21:
@@ -92,6 +91,8 @@ if jouer.lower() == "oui":
                     break
             if total < 21:
                 print("Vous avez obtenu")
+        elif choix.lower() == "rester":
+            pass
         print("te")
 
 else:
