@@ -15,11 +15,11 @@ def obtenir_une_cartes():
 def convertir_une_carte(carte):
     cartes = list(carte)
     if cartes[0] == "Valet":
-        cartes[0] = "11"
+        cartes[0] = "10"
     elif cartes[0] == "Dame":
-        cartes[0] = "12"
+        cartes[0] = "10"
     elif cartes[0] == "Roi":
-        cartes[0] = "13"
+        cartes[0] = "10"
     elif cartes[0] == "As":
         cartes[0] = "1"
 
@@ -33,11 +33,33 @@ def calucler_total(carte1, carte2):
     return total
 
 
+def donner_nouvelle_carte(function):
+    carte = obtenir_une_cartes()
+    carte = convertir_une_carte(carte)
+
+    return carte
+
+
 def erreur(jouer_encore):
     while jouer_encore.lower() != "oui" and jouer_encore.lower() != "non":
         jouer_encore = input("Veuillez entrer une valeur valide (Oui ou Non): ")
 
     return jouer_encore
+
+
+def erreur2(choix):
+    while choix.lower() != "garder" and choix.lower() != "autre":
+        choix = input("Veuillez entrer une valeur valide (Garder ou Autre): ")
+
+    return choix
+
+
+def buster(total):
+    print("Vous avez \"Buster\" perdu pour ce tour avec un total de {}".format(total))
+    continuer = input("Voulez vous recommencer ? Oui ou non ? ")
+    continuer = erreur(continuer)
+
+    return continuer
 
 
 jouer = input("Bonjour, voulez-vous jouez au BlackJack ? Oui/Non: ")
@@ -56,16 +78,21 @@ if jouer.lower() == "oui":
             f"Voila vos deux cartes: le {carte1[0]} de {carte1[1]} et le {carte2[0]} de {carte2[1]} pour un total de {total}")
         choix = input("Voulez vous une autre carte ou vous souhaiter garder cela ? Garder/Autre ")
         while choix.lower() != "garder" and choix.lower() != "autre":
-            jouer = input("Veuillez entrer une valeur valide (Garder ou Autre): ")
+            choix = input("Veuillez entrer une valeur valide (Garder ou Autre): ")
         if choix.lower() == "garder":
-            carte3 = obtenir_une_cartes()
-            convertir_une_carte(carte3)
+            carte3 = donner_nouvelle_carte(obtenir_une_cartes())
             total += int(carte3[0])
             if total > 21:
-                print("Vous avez \"Buster\" perdu pour ce tour")
-                parti_en_cours = input("Voulez vous recommencer ? Oui ou non ? ")
-            print("Vous avez obtenu")
-        break
+                continuer = buster(total)
+                if continuer.lower() == "Oui":
+                    parti_en_cours = True
+                    break
+                elif continuer.lower() == "Non":  # A VÉRIFIER
+                    parti_en_cours = False
+                    break
+            if total < 21:
+                print("Vous avez obtenu")
+        print("te")
 
 else:
     print("Merci et à la prochaine")
