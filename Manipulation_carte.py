@@ -1,10 +1,12 @@
 from Paquet_de_carte import Carte
 
+
 def obtenir_une_cartes():
     carte = Carte()
     carte = carte.tirer_une_carte()
 
     return carte
+
 
 def convertir_une_carte(carte):
     cartes = list(carte)
@@ -19,7 +21,8 @@ def convertir_une_carte(carte):
 
     return tuple(cartes)
 
-def donner_nouvelle_carte(function):
+
+def donner_nouvelle_carte():
     carte = obtenir_une_cartes()
     carte = convertir_une_carte(carte)
 

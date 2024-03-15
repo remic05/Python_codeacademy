@@ -1,6 +1,5 @@
 from Manipulation_carte import obtenir_une_cartes, donner_nouvelle_carte
 from gerer_erreur import choix_piocher_ou_rester, recomencer_partit
-from main import total
 
 
 def buster_message(total):
@@ -11,8 +10,8 @@ def buster_message(total):
     return continuer_apres_buster
 
 
-def buster():
-    global parti_en_cours
+def buster(total):
+    parti_en_cours = True
     continuer_apres_buster = buster_message(total)
     if continuer_apres_buster.lower() == "oui":
         parti_en_cours = True
@@ -25,7 +24,7 @@ def buster():
 
 
 def piocher(total_second):
-    carte3 = donner_nouvelle_carte(obtenir_une_cartes())
+    carte3 = donner_nouvelle_carte()
     total_second += int(carte3[0])
     return total_second, carte3
 
