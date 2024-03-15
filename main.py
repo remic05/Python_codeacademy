@@ -54,18 +54,31 @@ def erreur2(choix):
     return choix
 
 
-def buster(total):
+def buster_message(total):
     print("Vous avez \"Buster\" perdu pour ce tour avec un total de {}".format(total))
-    continuer = input("Voulez vous recommencer ? Oui ou non ? ")
-    continuer = erreur(continuer)
+    continuer_apres_buster = input("Voulez vous recommencer ? Oui ou non ? ")
+    erreur(continuer_apres_buster)
 
-    return continuer
+    return continuer_apres_buster
+
+
+def buster():
+    global parti_en_cours
+    continuer_apres_buster = buster_message(total)
+    if continuer_apres_buster.lower() == "oui":
+        parti_en_cours = True
+
+    elif continuer_apres_buster.lower() == "non":
+        parti_en_cours = False
+        print("Merci et à la prochaine")
+
+    return parti_en_cours
 
 
 def piocher(total_second):
     carte3 = donner_nouvelle_carte(obtenir_une_cartes())
     total_second += int(carte3[0])
-    return total_second
+    return total_second, carte3
 
 
 def rester():
@@ -95,22 +108,18 @@ if jouer.lower() == "oui":
             f"Voila vos deux cartes: le {carte1[0]} de {carte1[1]} et le {carte2[0]} de {carte2[1]} pour un total de {total}")
         choix = choix_piocher_ou_non()
         if choix == "piocher":
-            total = piocher(total)
-        if total > 21:
-            continuer = buster(total)
-            if continuer.lower() == "Oui":
-                parti_en_cours = True
-                break
-            elif continuer.lower() == "Non":  # A VÉRIFIER
-                parti_en_cours = False
-                print("Merci et à la prochaine")
-                break
-        elif total < 21:
-            print("Vous avez obtenu")
+            total, carte3 = piocher(total)
+            if total > 21:
+                buster()
+            elif total < 21:
+                print(f"Vous avez piocher le {carte3[0]} de {carte3[1]} pour un nouveau total de {total}")
+                if total > 21:
+                    buster()
         elif choix.lower() == "rester":
-            rester() #fonction a complété
+            rester()  # fonction a complété
             pass
-        print("te")
+        if not parti_en_cours:
+            break
 
 else:
     print("Merci et à la prochaine")
