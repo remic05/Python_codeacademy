@@ -1,0 +1,6 @@
+#1 - Régler la fonction rester dans le fichier mécanique_jeux
+    Le calcul du total dans la boucle while ne fonctionne pas
+
+#2 quand on répond "oui" pour recommencer on tombe dans un If > 21 (fichier main), il faudrait sortir de la boucle, comme quand on choisit l'option "non"
+
+#3 Finir le Elif quand l'utilisateur a 21 dans le fichier main
