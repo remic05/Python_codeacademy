@@ -10,10 +10,9 @@ print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 jouer = input("Bonjour, voulez-vous jouez au BlackJack ? Oui/Non: ")
 
 jouer = recomencer_partit(jouer)
-
-if jouer.lower() == "oui":
-    parti_en_cours = True
-    while parti_en_cours:
+parti_en_cours = True
+while parti_en_cours:
+    if jouer.lower() == "oui":
         print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*")
         print("Le groupier vas vous donnez 2 cartes, vous devez choisir si vous voulez une autre carte ou vous garder "
               "ces cartes.")
@@ -29,24 +28,30 @@ if jouer.lower() == "oui":
         total = plus_petit_que21(total, choix, carte3)
         if total > 21:
             parti_en_cours = buster(total)
+            break
         elif total < 21:
             choix = choix_piocher_ou_non()
             total = plus_petit_que21(total, choix, carte3)
             if total > 21:
                 parti_en_cours = buster(total)
-            if total < 21:
+                break
+            elif total < 21:
                 choix = choix_piocher_ou_non()
                 total = plus_petit_que21(total, choix, carte3)
                 if total > 21:
                     parti_en_cours = buster(total)
-                if total < 21:
+                    break
+                elif total < 21:
                     plus_petit_que21(total, "rester", carte3)
+                    break
         elif total == 21:
             print("total est de 21")
 
         elif not parti_en_cours:
             break
-
+    elif jouer.lower() == "non":
+        parti_en_cours_ = False
+        print("Merci et à la prochaine")
 
 else:
     print("Merci et à la prochaine")

@@ -39,24 +39,19 @@ def piocher(total_second):
 
 
 def rester(total, carte1):
-    total_2 = 0
-    grand_total = 0
-    total_croupier2 = 0
     print(f"Très bien votre total est alors de {total}, regardon maintenant ce que le croupier a obtenu ")
     carte2 = donner_nouvelle_carte()
     total_croupier1 = croupier_total(carte1, carte2)
     print(f"Le croupier à piocher sa deuxième carte et à obtenu le {carte2[0]} de {carte2[1]} pour un total "
           f"maintenant à {total_croupier1}")
     grand_total = total_croupier1
-    while total_croupier1 <= 17 and total_croupier2 <= 17:
-        total_2, carte = piocher(total_croupier1)
-        total_2 += total_croupier2
-        total_croupier2 = total_2
+    while grand_total < 17:
+        total_2, carte = piocher(grand_total)
+        grand_total += total_2
         print(
-            f"Le croupier à maintenant piocher le {carte[0]} de {carte[1]} pour un nouveau total de {total_croupier2}")
-        grand_total = total_croupier2
+            f"Le croupier à maintenant piocher le {carte[0]} de {carte[1]} pour un nouveau total de {grand_total}")
 
-    if total_2 > 21:
+    if grand_total > 21:
         grand_total = 0
 
     return grand_total
@@ -95,4 +90,4 @@ def gagnant(total1, total2):
     elif total1 > total2:
         return f"Bravo vous avez gagné avec un total de {total1}"
     elif total2 > total1:
-        return f"Le croupier a gagné avec un total de {total1} vous avez seulement {total2}"
+        return f"Le croupier a gagné avec un total de {total2} vous avez seulement {total1}"
