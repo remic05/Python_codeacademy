@@ -7,14 +7,6 @@ print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("                 BLACKJACK                 ")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 
-
-def calucler_total(carte_1, carte_2):
-    carte_1 = convertir_une_carte(carte_1)
-    carte_2 = convertir_une_carte(carte_2)
-    total_premier = int(carte_1[0]) + int(carte_2[0])
-    return total_premier
-
-
 jouer = input("Bonjour, voulez-vous jouez au BlackJack ? Oui/Non: ")
 
 jouer = recomencer_partit(jouer)
@@ -22,37 +14,37 @@ jouer = recomencer_partit(jouer)
 if jouer.lower() == "oui":
     parti_en_cours = True
     while parti_en_cours:
+        print("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*")
         print("Le groupier vas vous donnez 2 cartes, vous devez choisir si vous voulez une autre carte ou vous garder "
               "ces cartes.")
         carte1 = obtenir_une_cartes()
         carte2 = obtenir_une_cartes()
         carte3 = obtenir_une_cartes()
-        total = calucler_total(carte1, carte2)
+        total = calculer_total(carte1, carte2)
         print(
             f"Voila vos deux cartes: le {carte1[0]} de {carte1[1]} et le {carte2[0]} de {carte2[1]}"
             f" pour un total de {total}")
         print(f"La carte du Croupier est le {carte3[0]} de {carte3[1]}")
         choix = choix_piocher_ou_non()
-        total = plus_petit_que21(total, choix)
+        total = plus_petit_que21(total, choix, carte3)
         if total > 21:
             parti_en_cours = buster(total)
-        if total < 21:
+        elif total < 21:
             choix = choix_piocher_ou_non()
-            total = plus_petit_que21(total, choix)
+            total = plus_petit_que21(total, choix, carte3)
             if total > 21:
                 parti_en_cours = buster(total)
             if total < 21:
                 choix = choix_piocher_ou_non()
-                total = plus_petit_que21(total, choix)
+                total = plus_petit_que21(total, choix, carte3)
                 if total > 21:
                     parti_en_cours = buster(total)
+                if total < 21:
+                    plus_petit_que21(total, "rester", carte3)
         elif total == 21:
             print("total est de 21")
 
-        if choix.lower() == "rester":
-            rester()  # fonction a complété
-            pass
-        if not parti_en_cours:
+        elif not parti_en_cours:
             break
 
 
